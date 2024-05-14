@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "backend"
+name = "src"
 version = "0.1.0"
 description = ""
 authors = ["Aditya Banerjee <aditya_banerjee@icloud.com>"]
@@ -10,9 +10,7 @@ python = "^3.12"
 flask = "^3.0.3"
 llamaapi = "^0.1.36"
 python-dotenv = "^1.0.1"
-
-[tool.poetry.scripts]
-start = "poetry run python backend/main.py"
+flask-cors = "^4.0.1"
 
 [build-system]
 requires = ["poetry-core"]

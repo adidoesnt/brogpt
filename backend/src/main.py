@@ -2,6 +2,7 @@ import os
 from flask import Flask, request
 from dotenv import load_dotenv
 from llamaapi import LlamaAPI
+from flask_cors import CORS
 
 load_dotenv()
 
@@ -13,6 +14,8 @@ llama_api_key = os.environ.get('LLAMA_API_KEY', 'DUMMY-API-KEY')
 llama = LlamaAPI(llama_api_key) 
 app = Flask(__name__)
 
+CORS(app)
+
 @app.route('/health', methods=['GET'])
 def health():
     return 'server is running'
@@ -21,10 +24,9 @@ def health():
 def reply():
     data = request.get_json()
     original_prompt: str = data.get('prompt')
-    original_prompt = original_prompt.strip()
-    prompt = f"""Answer this prompt, but like a frat brother: {original_prompt}"""
-    if prompt is None or prompt == '':
+    if original_prompt is None or original_prompt.strip() == '':
         return { "error": "Prompt is required" }, 400
+    prompt = f"""Answer this prompt, but like a frat brother: {original_prompt}"""
     print(f"prompt: {prompt}")
     api_request_json = {
         "model": "llama3-70b",
@@ -37,8 +39,8 @@ def reply():
     }
     response = llama.run(api_request_json)
     response_json = response.json()
-    summary = response_json['choices'][0]['message']['content']
-    return { "summary": summary }
+    reply = response_json['choices'][0]['message']['content']
+    return { "reply": reply }
 
 if __name__ == '__main__':
     debug = False
