@@ -28,9 +28,7 @@ function Chat() {
 
     return (
         <Grail header={Header} footer={Footer}>
-            <div className="flex items-center justify-center w-full h-full">
-                <Messages messages={messages} />
-            </div>
+            <Messages messages={messages} />
         </Grail>
     );
 }

@@ -8,11 +8,16 @@ export type MessageProps = {
 
 export const Message = ({ message, from, uid }: MessageProps) => {
     return from === Role.USER ? (
-        <div key={uid} className="flex w-full justify-end rounded-md">
+        <div
+            id={`message-${uid}`}
+            key={uid}
+            className="flex w-full justify-end rounded-md"
+        >
             <p className="flex p-2 bg-blue-400 rounded-md">{message}</p>
         </div>
     ) : (
         <div
+            id={`message-${uid}`}
             key={uid}
             className="flex p-2 w-full bg-green-400 justify-start rounded-md"
         >
@@ -27,7 +32,10 @@ type MessagesProps = {
 
 const Messages = ({ messages }: MessagesProps) => {
     return (
-        <div className="flex flex-col w-full h-full py-4 justify-end gap-4 overflow-y-auto">
+        <div
+            id="messages"
+            className="flex flex-col w-full py-4 justify-end gap-4 overflow-y-auto"
+        >
             {messages.map((message) => (
                 <Message {...message} />
             ))}
