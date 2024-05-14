@@ -34,7 +34,7 @@ const Messages = ({ messages }: MessagesProps) => {
     return (
         <div
             id="messages"
-            className="flex flex-col w-full py-4 justify-end gap-4 overflow-y-auto"
+            className="flex flex-col w-full p-4 justify-end gap-4 overflow-y-auto"
         >
             {messages.map((message) => (
                 <Message {...message} />
