@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 import { v4 } from "uuid";
 import Input from "./components/Input";
 import Grail from "./components/Grail";
@@ -6,6 +6,7 @@ import Messages, { MessageProps } from "./components/Messages";
 import { Role } from "./constants/role";
 
 function Chat() {
+    const messagesEndRef = useRef<HTMLDivElement>(null);
     const [value, setValue] = useState("");
     const [messages, setMessages] = useState<Array<MessageProps>>([]);
     const onSubmit = useCallback(() => {
@@ -28,7 +29,8 @@ function Chat() {
 
     return (
         <Grail header={Header} footer={Footer}>
-            <Messages messages={messages} />
+            <Messages ref={messagesEndRef} messages={messages} />
+            <div ref={messagesEndRef} />
         </Grail>
     );
 }
