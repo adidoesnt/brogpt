@@ -1,11 +1,23 @@
 import { useCallback, useState } from "react";
+import { v4 } from "uuid";
 import Input from "./components/Input";
 import Grail from "./components/Grail";
+import Messages, { MessageProps } from "./components/Messages";
+import { Role } from "./constants/role";
 
 function Chat() {
     const [value, setValue] = useState("");
+    const [messages, setMessages] = useState<Array<MessageProps>>([]);
     const onSubmit = useCallback(() => {
-        console.log(value);
+        if (value.trim() === "") return;
+        setMessages((prev) => [
+            ...prev,
+            {
+                from: Role.USER,
+                message: value,
+                uid: v4(),
+            },
+        ]);
         setValue("");
     }, [value]);
 
@@ -16,8 +28,8 @@ function Chat() {
 
     return (
         <Grail header={Header} footer={Footer}>
-            <div className="flex w-full h-full items-center justify-center">
-                Chat
+            <div className="flex items-center justify-center w-full h-full">
+                <Messages messages={messages} />
             </div>
         </Grail>
     );
