@@ -1,25 +1,25 @@
-import { useCallback, useRef, useState } from "react";
-import { v4 } from "uuid";
-import Input from "./components/Input";
-import Grail from "./components/Grail";
-import Messages, { MessageProps } from "./components/Messages";
-import { Role } from "./constants/role";
+import { useCallback, useRef, useState } from 'react';
+import { v4 } from 'uuid';
+import Input from './components/Input';
+import Grail from './components/Grail';
+import Messages, { MessageProps } from './components/Messages';
+import { Role } from './constants/role';
 
 function Chat() {
     const messagesEndRef = useRef<HTMLDivElement>(null);
-    const [value, setValue] = useState("");
+    const [value, setValue] = useState('');
     const [messages, setMessages] = useState<Array<MessageProps>>([]);
     const onSubmit = useCallback(() => {
-        if (value.trim() === "") return;
+        if (value.trim() === '') return;
         setMessages((prev) => [
             ...prev,
             {
                 from: Role.USER,
                 message: value,
-                uid: v4(),
-            },
+                uid: v4()
+            }
         ]);
-        setValue("");
+        setValue('');
     }, [value]);
 
     const Header = <h1 className="text-3xl font-bold">BroGPT</h1>;

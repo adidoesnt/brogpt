@@ -6,7 +6,7 @@ export type InputProps = {
 
 const Input = ({ value, onChange, onSubmit }: InputProps) => {
     const handleKeyDown = (event: React.KeyboardEvent) => {
-        if (event.key === "Enter") {
+        if (event.key === 'Enter') {
             onSubmit();
         }
     };

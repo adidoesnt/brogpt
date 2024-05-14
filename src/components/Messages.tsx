@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import { Role } from "../constants/role";
+import React, { useEffect } from 'react';
+import { Role } from '../constants/role';
 
 export type MessageProps = {
     uid: string;
@@ -31,26 +31,28 @@ type MessagesProps = {
     messages: MessageProps[];
 };
 
-const Messages = React.forwardRef<HTMLDivElement, MessagesProps>(({ messages }, ref) => {
-    const messagesEndRef = ref as React.MutableRefObject<HTMLDivElement>;
+const Messages = React.forwardRef<HTMLDivElement, MessagesProps>(
+    ({ messages }, ref) => {
+        const messagesEndRef = ref as React.MutableRefObject<HTMLDivElement>;
 
-    useEffect(() => {
-        if (messagesEndRef?.current) {
-            messagesEndRef?.current.scrollIntoView({ behavior: 'smooth' });
-        }
-    }, [messages.length, messagesEndRef]);
+        useEffect(() => {
+            if (messagesEndRef?.current) {
+                messagesEndRef?.current.scrollIntoView({ behavior: 'smooth' });
+            }
+        }, [messages.length, messagesEndRef]);
 
-    return (
-        <div
-            id="messages"
-            className="flex flex-col justify-end flex-grow relative w-full h-fit p-4 gap-4"
-            ref={ref}
-        >
-            {messages.map((message) => (
-                <Message key={message.uid} {...message} />
-            ))}
-        </div>
-    );
-});
+        return (
+            <div
+                id="messages"
+                className="flex flex-col justify-end flex-grow relative w-full h-fit p-4 gap-4"
+                ref={ref}
+            >
+                {messages.map((message) => (
+                    <Message key={message.uid} {...message} />
+                ))}
+            </div>
+        );
+    }
+);
 
 export default Messages;
