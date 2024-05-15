@@ -11,8 +11,8 @@ const llama = axios.create({
 
 export const getResponse = async (message: string) => {
     try {
-        const response = await llama.post('/reply', {
-            prompt: message
+        const response = await llama.post('/chat', {
+            message
         });
         const { reply } = response.data;
         return reply;
