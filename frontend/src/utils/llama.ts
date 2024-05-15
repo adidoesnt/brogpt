@@ -4,7 +4,6 @@ const { VITE_SERVER_URL: baseURL = 'DUMMY_SERVER_URL' } = import.meta.env;
 
 const llama = axios.create({
     baseURL,
-    timeout: 1000,
     headers: {
         'Content-Type': 'application/json'
     }
