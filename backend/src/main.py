@@ -1,7 +1,7 @@
 import os
 from flask import Flask, request
 from dotenv import load_dotenv
-from llamaapi import LlamaAPI
+from openai import OpenAI
 from flask_cors import CORS
 
 load_dotenv()
@@ -11,7 +11,10 @@ host = os.environ.get('HOST', '127.0.0.1')
 port = os.environ.get('PORT', 8080)
 llama_api_key = os.environ.get('LLAMA_API_KEY', 'DUMMY-API-KEY')
 
-llama = LlamaAPI(llama_api_key) 
+llama = OpenAI(
+    api_key = llama_api_key,
+    base_url = "https://api.llama-api.com"
+)
 app = Flask(__name__)
 
 CORS(app)
@@ -20,26 +23,21 @@ CORS(app)
 def health():
     return 'server is running'
 
-@app.route('/reply', methods=['POST'])
+@app.route('/chat', methods=['POST'])
 def reply():
     data = request.get_json()
-    original_prompt: str = data.get('prompt')
+    original_prompt: str = data.get('message')
     if original_prompt is None or original_prompt.strip() == '':
         return { "error": "Prompt is required" }, 400
     prompt = f"""Answer this prompt, but like a frat brother: {original_prompt}"""
     print(f"prompt: {prompt}")
-    api_request_json = {
-        "model": "llama3-70b",
-        "messages": [
+    response = llama.chat.completions.create(model="llama-13b-chat", messages=[
             {
                 "role": "system", 
                 "content": prompt
             },
-        ]
-    }
-    response = llama.run(api_request_json)
-    response_json = response.json()
-    reply = response_json['choices'][0]['message']['content']
+        ])
+    reply = response.choices[0].message.content
     return { "reply": reply }
 
 if __name__ == '__main__':
