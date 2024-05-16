@@ -5,7 +5,7 @@ import Chat from './Chat';
 
 function App() {
     const userContext = useContext(UserContext);
-    return userContext?.isLoggedIn ? <Login /> : <Chat />;
+    return userContext?.isLoggedIn ? <Chat /> : <Login />;
 }
 
 export default App;
