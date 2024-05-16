@@ -1,9 +1,22 @@
-use actix_web::{web, App, HttpServer, Responder, HttpResponse};
+use actix_web::{get, App, HttpServer, Responder, HttpResponse, web};
 use std::env;
 use dotenv::dotenv;
+use serde::Serialize;
 
-async fn index() -> impl Responder {
-    HttpResponse::Ok().body("Server is healthy")
+#[derive(Serialize)]
+struct Health {
+    status: u16,
+    message: String,
+}
+
+#[get("/health")]
+async fn health() -> impl Responder {
+    let message: &str = "Server is healthy!";
+    let response_body = web::Json(Health {
+        status: 200,
+        message: message.to_string(),
+    });
+    HttpResponse::Ok().json(response_body)
 }
 
 #[actix_web::main]
@@ -17,7 +30,7 @@ async fn main() -> std::io::Result<()> {
     println!("Starting server at {}", hostname);
     HttpServer::new(|| {
         App::new()
-            .route("/", web::get().to(index))
+            .service(health)
     })
     .bind(hostname)?
     .run()
