@@ -1,0 +1,6 @@
+{
+  "name": "dynamodb-local",
+  "scripts": {
+    "start": "docker run --rm --env-file .env -p 8000:8000 amazon/dynamodb-local"
+  }
+}
