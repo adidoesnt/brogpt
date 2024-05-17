@@ -1,12 +1,12 @@
 use actix_web::{App, HttpServer};
 use std::env;
 use dotenv::dotenv;
-
 use crate::handlers::health;
 use crate::components::database;
 
 pub mod handlers;
 pub mod components;
+pub mod models;
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
