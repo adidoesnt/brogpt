@@ -1,7 +1,7 @@
 use actix_web::{App, HttpServer};
 use std::env;
 use dotenv::dotenv;
-use crate::handlers::health;
+use crate::handlers::{health, signup};
 use crate::components::database;
 
 pub mod handlers;
@@ -23,6 +23,7 @@ async fn main() -> std::io::Result<()> {
     HttpServer::new(|| {
         App::new()
             .service(health::handler)
+            .service(signup::handler)
     })
     .bind(hostname)?
     .run()
