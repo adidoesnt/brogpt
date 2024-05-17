@@ -2,7 +2,6 @@ use aws_sdk_dynamodb::Client;
 use aws_config::BehaviorVersion;
 use std::env;
 use dotenv::dotenv;
-use crate::models::user;
 
 pub struct Database {
     pub client: aws_sdk_dynamodb::Client,
